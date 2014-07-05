@@ -1,0 +1,31 @@
+{
+  "name": "vtree-select",
+  "version": "0.0.0",
+  "description": "Select virtual-dom nodes using css selectors",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:parshap/vtree-select.git"
+  },
+  "keywords": [
+    "virtual-dom",
+    "select",
+    "css",
+    "selector"
+  ],
+  "author": "Parsha Pourkhomami",
+  "license": "Public Domain",
+  "bugs": {
+    "url": "https://github.com/parshap/vtree-select/issues"
+  },
+  "homepage": "https://github.com/parshap/vtree-select",
+  "dependencies": {
+    "cssauron": "^1.1.2"
+  },
+  "devDependencies": {
+    "virtual-hyperscript": "^3.0.0"
+  }
+}
