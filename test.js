@@ -3,18 +3,20 @@
 var h = require("virtual-hyperscript");
 var select = require("./");
 
-var vtree = h("div#test", [
-	h("span#test2", "hello world"),
-	h("span", "hello world2"),
-]);
+var span1 = h("span.span1", "hello world");
+var span2 = h("span.span2", "hello world2");
+var tree = h("div#tree", [span1, span2]);
 
 var assert = require("assert");
 
 // Select root element
-assert(select("div")(vtree));
-assert(select("[id]")(vtree));
-assert(select("[id=test]")(vtree));
-assert(select("div[id=test]")(vtree));
+assert.deepEqual(select("div")(tree), [tree]);
+assert.deepEqual(select("div")(tree), [tree]);
+assert.deepEqual(select("[id]")(tree), [tree]);
+assert.deepEqual(select("[id=tree]")(tree), [tree]);
+assert.deepEqual(select("div[id=tree]")(tree), [tree]);
 
 // Select children
-assert(select("span")(vtree));
+assert.deepEqual(select("span")(tree), [span1, span2]);
+assert.deepEqual(select("span.span1")(tree), [span1]);
+assert.deepEqual(select("span.span2")(tree), [span2]);

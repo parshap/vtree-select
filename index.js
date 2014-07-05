@@ -7,10 +7,12 @@ var language = require("cssauron")({
   children: "children",
   parent: "parent",
   attr: function(node, attr) {
-    return node.properties[attr];
+    if (node.properties) {
+      return node.properties[attr];
+    }
   },
   class: function(node) {
-    return node.properties.class;
+    return node.properties.className;
   },
   id: function(node) {
     return node.properties.id;
@@ -21,18 +23,34 @@ module.exports = function(sel) {
   var selector = language(sel);
   return function(vtree) {
     var node = mapTree(vtree);
-    var result = selector(node);
-    // var result = selector(mapTree(vtree));
-    if (result) {
-      if ( ! Array.isArray(result)) {
-        result = [result];
+    var matched = [];
+
+    // Traverse each node in the tree and see if it matches our selector
+    traverse(node, function(node) {
+      var result = selector(node);
+      if (result) {
+        if ( ! Array.isArray(result)) {
+          result = [result];
+        }
+        matched.push.apply(matched, result);
       }
-      // Map the result back to a vtree
-      return mapResult(result);
+    });
+
+    if ( ! matched.length) {
+      return null;
     }
-    return result;
+    return mapResult(matched);
   };
 };
+
+function traverse(vtree, fn) {
+  fn(vtree);
+  if (vtree.children) {
+    vtree.children.forEach(function(vtree) {
+      traverse(vtree, fn);
+    });
+  }
+}
 
 function mapResult(result) {
   return result.map(function(node){
