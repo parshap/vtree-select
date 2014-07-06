@@ -36,5 +36,5 @@ Returns an array of matched nodes, or `null` if no nodes match.
 ## Installation
 
 ```
-npm install http-route
+npm install vtree-select
 ```
