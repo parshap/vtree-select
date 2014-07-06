@@ -65,13 +65,14 @@ function mapTree(vtree, parent) {
     };
   }
 
-  return {
+  var node = {
     tagName: vtree.tagName,
-    children: vtree.children.map(function(child) {
-      return mapTree(child, vtree);
-    }),
     properties: vtree.properties,
     parent: parent,
     vtree: vtree,
   };
+  node.children = vtree.children.map(function(child) {
+    return mapTree(child, node);
+  });
+  return node;
 }
