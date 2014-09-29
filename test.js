@@ -31,3 +31,6 @@ assert.deepEqual(select("div ul li")(tree), [li]);
 assert.deepEqual(select("div ul > li")(tree), [li]);
 assert.deepEqual(select("div * > li")(tree), [li]);
 assert.deepEqual(select("*:root")(tree), [tree]);
+
+// :contains() pseudo
+assert.deepEqual(select("!* > :contains('hello')")(tree), [span1, span2]);

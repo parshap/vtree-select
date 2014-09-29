@@ -6,6 +6,7 @@ var language = require("cssauron")({
   tag: "tagName",
   children: "children",
   parent: "parent",
+  contents: "contents",
   attr: function(node, attr) {
     if (node.properties) {
       return node.properties[attr];
@@ -70,6 +71,7 @@ function mapTree(vtree, parent) {
 
   var node = {
     tagName: vtree.tagName,
+    contents: "",
     properties: vtree.properties || {},
     parent: parent,
     vtree: vtree,
