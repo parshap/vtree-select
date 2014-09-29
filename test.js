@@ -26,3 +26,8 @@ assert.deepEqual(select("span.span2")(tree), [span2]);
 
 // 3rd tier children
 assert.deepEqual(select("div ul li")(tree), [li]);
+
+// * operator
+assert.deepEqual(select("div ul > li")(tree), [li]);
+assert.deepEqual(select("div * > li")(tree), [li]);
+assert.deepEqual(select("*:root")(tree), [tree]);
