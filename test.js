@@ -14,6 +14,7 @@ var assert = require("assert");
 // Select root element
 assert.deepEqual(select("div")(tree), [tree]);
 assert.deepEqual(select("div")(tree), [tree]);
+assert.deepEqual(select("#tree")(tree), [tree]);
 assert.deepEqual(select("[id]")(tree), [tree]);
 assert.deepEqual(select("[id=tree]")(tree), [tree]);
 assert.deepEqual(select("div[id=tree]")(tree), [tree]);
