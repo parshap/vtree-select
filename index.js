@@ -62,6 +62,9 @@ function mapTree(vtree, parent) {
   if (vtree.type === "VirtualText") {
     return {
       contents: vtree.text,
+      properties: {},
+      parent: parent,
+      vtree: vtree,
     };
   }
 
