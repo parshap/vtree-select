@@ -36,6 +36,9 @@ that match the selector.
 
 Returns an array of matched nodes, or `null` if no nodes match.
 
+Unlike css and `querySelectorAll`, *text nodes* are matched and
+returned.
+
 ## Installation
 
 ```
