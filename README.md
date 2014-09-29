@@ -1,10 +1,13 @@
 # vtree-select
 
-Select *[virtual-dom][]* nodes using css selectors.
+Select *[vtree][]* nodes (used by *[virtual-dom][]*) using css
+selectors.
 
-Selector matching is done using *[cssauron][]*.
+Selector matching is done using *[cssauron][]*. See the documentation
+for details on supported selectors.
 
 [virtual-dom]: https://www.npmjs.org/package/virtual-dom
+[vtree]: https://www.npmjs.org/package/vtree
 [cssauron]: https://www.npmjs.org/package/cssauron
 
 ## Usage
