@@ -67,7 +67,7 @@ function mapTree(vtree, parent) {
 
   var node = {
     tagName: vtree.tagName,
-    properties: vtree.properties,
+    properties: vtree.properties || {},
     parent: parent,
     vtree: vtree,
   };
