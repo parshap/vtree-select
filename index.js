@@ -9,6 +9,10 @@ var language = require("cssauron")({
   contents: "contents",
   attr: function(node, attr) {
     if (node.properties) {
+      var attrs = node.properties.attributes
+      if(attrs && attrs[attr]){
+        return attrs[attr];
+      }
       return node.properties[attr];
     }
   },
