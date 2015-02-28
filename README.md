@@ -23,6 +23,12 @@ var vtree = h("div", [
 
 select("div strong")(vtree)
 // -> <strong>world</strong> (VNode object)
+
+select("div strong").matches(vtree)
+// -> false
+
+select("div").matches(vtree)
+// -> true
 ```
 
 ## API
@@ -40,6 +46,11 @@ Unlike css and `querySelectorAll`, *text nodes* are matched and
 returned.
 
 Selectors are **case-sensitive**.
+
+### `match.matches(vtree) -> boolean`
+
+Returns `true` if the vtree matches the selector, or `false` otherwise.
+
 
 ## Installation
 

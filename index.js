@@ -22,7 +22,7 @@ var language = require("cssauron")({
 
 module.exports = function(sel) {
   var selector = language(sel);
-  return function(vtree) {
+  function match(vtree) {
     var node = mapTree(vtree);
     var matched = [];
 
@@ -42,6 +42,10 @@ module.exports = function(sel) {
     }
     return mapResult(matched);
   };
+  match.matches = function(vtree) {
+    return !!selector(vtree);
+  }
+  return match;
 };
 
 function traverse(vtree, fn) {

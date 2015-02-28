@@ -34,3 +34,10 @@ assert.deepEqual(select("*:root")(tree), [tree]);
 
 // :contains() pseudo
 assert.deepEqual(select("!* > :contains('hello')")(tree), [span1, span2]);
+
+// matches(vtree)
+assert.strictEqual(select("*:root#tree").matches(tree), true);
+assert.strictEqual(select("span.span1").matches(tree.children[0]), true);
+assert.strictEqual(select("zz").matches(tree), false);
+assert.strictEqual(select(":not(span)").matches(tree), true);
+assert.strictEqual(select(":not(div)").matches(tree), false);
