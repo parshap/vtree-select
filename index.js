@@ -9,7 +9,7 @@ var language = require("cssauron")({
   contents: "contents",
   attr: function(node, attr) {
     if (node.properties) {
-      var attrs = node.properties.attributes
+      var attrs = node.properties.attributes;
       if(attrs && attrs[attr]){
         return attrs[attr];
       }
@@ -45,10 +45,10 @@ module.exports = function(sel) {
       return null;
     }
     return mapResult(matched);
-  };
+  }
   match.matches = function(vtree) {
     return !!selector(vtree);
-  }
+  };
   return match;
 };
 
