@@ -1,5 +1,7 @@
 # vtree-select
 
+[![build status](https://secure.travis-ci.org/parshap/vtree-select.svg?branch=master)](http://travis-ci.org/parshap/vtree-select)
+
 Select *[vtree][]* nodes (used by *[virtual-dom][]*) using css
 selectors.
 
