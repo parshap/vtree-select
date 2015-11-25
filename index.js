@@ -68,7 +68,7 @@ function mapResult(result) {
 }
 
 function mapTree(vtree, parent) {
-  if (vtree.type === "VirtualText") {
+  if (vtree.type === "VirtualText" || vtree.type ==="VirtualComment") {
     return {
       contents: vtree.text,
       properties: {},
