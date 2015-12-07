@@ -23,9 +23,9 @@
   },
   "homepage": "https://github.com/parshap/vtree-select",
   "dependencies": {
-    "cssauron": "^1.1.2"
+    "cssauron": "^1.2.0"
   },
   "devDependencies": {
-    "virtual-hyperscript": "^3.0.0"
+    "virtual-dom": "^2.1.1"
   }
 }

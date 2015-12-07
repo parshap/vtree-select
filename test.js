@@ -1,6 +1,6 @@
 "use strict";
 
-var h = require("virtual-hyperscript");
+var h = require("virtual-dom/h");
 var select = require("./");
 
 var span1 = h("span.span1", "hello world");

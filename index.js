@@ -4,9 +4,13 @@
 
 var language = require("cssauron")({
   tag: "tagName",
+  class: "className",
+  "id" :"id",
   children: "children",
   parent: "parent",
-  contents: "contents",
+  contents: function(node) {
+    return node.contents || "";
+  },
   attr: function(node, attr) {
     if (node.properties) {
       var attrs = node.properties.attributes;
@@ -16,18 +20,13 @@ var language = require("cssauron")({
       return node.properties[attr];
     }
   },
-  class: function(node) {
-    return node.properties.className;
-  },
-  id: function(node) {
-    return node.properties.id;
-  },
 });
 
-module.exports = function(sel) {
+module.exports = function(sel, options) {
+  options = options || {};
   var selector = language(sel);
   function match(vtree) {
-    var node = mapTree(vtree);
+    var node = mapTree(vtree, null, options) || {};
     var matched = [];
 
     // Traverse each node in the tree and see if it matches our selector
@@ -41,13 +40,15 @@ module.exports = function(sel) {
       }
     });
 
-    if ( ! matched.length) {
+    var results = mapResult(matched);
+    if (results.length === 0) {
       return null;
     }
-    return mapResult(matched);
+    return results;
   }
   match.matches = function(vtree) {
-    return !!selector(vtree);
+    var node = mapTree(vtree, null, options);
+    return !!selector(node);
   };
   return match;
 };
@@ -62,30 +63,59 @@ function traverse(vtree, fn) {
 }
 
 function mapResult(result) {
-  return result.map(function(node){
-    return node.vtree;
-  });
+  return result
+    .filter(function(node) {
+      return !! node.vtree;
+    })
+    .map(function(node){
+      return node.vtree;
+    });
 }
 
-function mapTree(vtree, parent) {
+function getNormalizeCaseFn(caseSensitive) {
+  return caseSensitive ?
+    function noop(str) {
+      return str;
+    } :
+    function toLowerCase(str) {
+      return str.toLowerCase();
+    };
+}
+
+// Map a virtual-dom node tree into a data structure that cssauron can use to
+// traverse.
+function mapTree(vtree, parent, options) {
+  var normalizeTagCase = getNormalizeCaseFn(options.caseSensitiveTag);
+
+  // VText represents text nodes
+  // See https://github.com/Matt-Esch/virtual-dom/blob/master/docs/vtext.md
   if (vtree.type === "VirtualText") {
     return {
       contents: vtree.text,
-      properties: {},
       parent: parent,
       vtree: vtree,
     };
   }
 
-  var node = {
-    tagName: vtree.tagName,
-    contents: "",
-    properties: vtree.properties || {},
-    parent: parent,
-    vtree: vtree,
-  };
-  node.children = vtree.children.map(function(child) {
-    return mapTree(child, node);
-  });
-  return node;
+  if (vtree.tagName != null) {
+    var node = {};
+    node.parent = parent;
+    node.vtree =  vtree;
+    node.tagName = normalizeTagCase(vtree.tagName);
+    if (vtree.properties) {
+      node.properties = vtree.properties;
+      if (typeof vtree.properties.className === "string") {
+        node.className = vtree.properties.className;
+      }
+      if (typeof vtree.properties.id === "string") {
+        node.id = vtree.properties.id;
+      }
+    }
+    if (vtree.children && typeof vtree.children.map === "function") {
+      node.children = vtree.children.map(function(child) {
+        return mapTree(child, node, options);
+      }).filter(Boolean);
+    }
+    return node;
+  }
 }

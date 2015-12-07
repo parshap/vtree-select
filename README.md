@@ -35,10 +35,14 @@ select("div").matches(vtree)
 
 ## API
 
-### `require("vtree-select")(selector) -> match`
+### `require("vtree-select")(selector [, options]) -> match`
 
 Create a match function that takes a vtree and returns an array of nodes
 that match the selector.
+
+`options.caseSensitiveTag` enables case sensitivity for tag names. This
+is useful for XML, which has case-sensitive tag names. HTML tag names
+are not case sensitive.
 
 ### `match(vtree) -> array`
 
