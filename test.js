@@ -47,3 +47,6 @@ assert.strictEqual(select("span.span1").matches(tree.children[0]), true);
 assert.strictEqual(select("zz").matches(tree), false);
 assert.strictEqual(select(":not(span)").matches(tree), true);
 assert.strictEqual(select(":not(div)").matches(tree), false);
+
+console.log("TAP version 13");
+console.log("ok");
