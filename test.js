@@ -45,7 +45,7 @@ assert.strictEqual(select("*:root#tree").matches(tree), true);
 assert.strictEqual(select("span.span1").matches(tree.children[0]), true);
 assert.strictEqual(select("zz").matches(tree), false);
 assert.strictEqual(select(":not(span)").matches(tree), true);
-assert.strictEqual(select(":not(div)").matches(tree), false);
+assert.strictEqual(select(":not(div)").matches(tree), true);
 
 // Widget
 // Use widget from virtual-dom example
