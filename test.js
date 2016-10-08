@@ -97,5 +97,13 @@ assert.strictEqual(select("div *")(divWithComment), null);
 assert.deepEqual(select("*")(divWithComment), [divWithComment]);
 assert.strictEqual(select("*")(vdomVirtualizeComment), null);
 
+// Class selector also works if class name in propreties
+var spanWithClassInAttributes = h("span", { attributes: { class: "cls" } }, "hello world")
+var treeWithClassInAttributes = h("div", [spanWithClassInAttributes]);
+assert.deepEqual(
+  select(".cls")(treeWithClassInAttributes), 
+  [spanWithClassInAttributes]);
+
+
 console.log("TAP version 13");
 console.log("ok");
