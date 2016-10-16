@@ -4,7 +4,16 @@
 
 var language = require("cssauron")({
   tag: "tagName",
-  class: "className",
+  class: function (node) {
+    if (node.className !== undefined) {
+      return node.className;
+    }
+    // html-to-vdom puts the 'class' in attributes.
+    if (node.properties && node.properties.attributes) {
+      return node.properties.attributes.class;
+    }
+    return undefined;
+  },
   "id" :"id",
   children: "children",
   parent: "parent",
