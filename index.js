@@ -56,8 +56,7 @@ module.exports = function(sel, options) {
     return results;
   }
   match.matches = function(vtree) {
-    var node = mapTree(vtree, null, options);
-    return !!selector(node);
+    return match(vtree) !== null;
   };
   return match;
 };
